@@ -9,24 +9,22 @@ Actualmente sin mantenimiento debido al éxito de la competencia. Si quieres hac
 
 ## Instrucciones de uso
 Aplicación desarrollada en Python (v3.11) con Flask como dependencia principal.
-Para activar el entorno ejecutamos `python3 -m venv venv` y despues `source venv/bin/activate`
-Para resolver las dependencias, tenemos que hacer lo siguiente `pip install -r requirements.txt`
-Para comprobar si funciona correctamente: `flask run` y en el navegador escribimos la url que se nos facilita en el terminal
-
-Aplicación con Mongo
-Aplicación desarrollada en Python (v3.11) con Flask y Mongo como dependencias principales. Levanta primero un servidor de Mongo en local.
-
-    docker run -p 27017:27017 -d mongo
-Luego ejecuta la aplicación, deberás establecer variables de entorno para la sesión.
-
-    export MONGO_IP="localhost"
-    export MONGO_PORT="27017"
-    python app.py
-
-Desplegará un servidor web en [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
 En el index se mostrará una tabla con los quacks de todos los usuarios, pero cuenta con una API que puedes utilizar para integrarla con tu propia aplicación o para desarrollar tu propio frontend.
 
+Aplicacion con Docker
+
+Lo primero de todo es crear una imagen de docker con el comando: `docker build -t nombre . `
+
+Ahora, creamos una red que conectará nuestra app con la base de datos de mongo: `docker network create nombreRed`
+
+Por último, debemos crear los respectivos contenedores:
+`docker run --network=nombreRed --name=mimongo -p 27017:27017 -d mongo:4.4` En este comando es necesario explicar dos cosas:`--name=mimongo`, es un campo obligatorio, no puedes poner otro nombre. Por otra parte, `-d mongo:4.4` solo es necesario si lanzas la app desde una maquina virtual. Si no es el caso, bastará con poner `-d mongo`. 
+`docker run --network=nombreRed -p 5000:5000 -d quacker`
+El puerto de mongo se queda igual, pero has de cambiar el de quacker si tu has escogido otro distinto al 5000
+Con esto dicho, solo falta lanzar la app y comprobar que funciona
+
+Desplegará un servidor web en [http://127.0.0.1:5000](http://127.0.0.1:5000)
 ### API REST
 No cuenta con funcionalidad CRUD completa. Se exponen los siguientes endpoints (acompaño explicación y ejemplos):
   - __\[POST\] /signup__ (registrar nuevo usuario). Espera un JSON con la siguiente estructura:
