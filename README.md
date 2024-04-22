@@ -9,9 +9,16 @@ Actualmente sin mantenimiento debido al éxito de la competencia. Si quieres hac
 
 ## Instrucciones de uso
 Aplicación desarrollada en Python (v3.11) con Flask como dependencia principal.
-Para activar el entorno ejecutamos `python3 -m venv venv` y despues `source /venv/bin/activate`
+Para activar el entorno ejecutamos `python3 -m venv venv` y despues `source venv/bin/activate`
 Para resolver las dependencias, tenemos que hacer lo siguiente `pip install -r requirements.txt`
 Para comprobar si funciona correctamente: `flask run` y en el navegador escribimos la url que se nos facilita en el terminal
+
+Aplicación con Mongo
+Aplicación desarrollada en Python (v3.11) con Flask y Mongo como dependencias principales. Levanta primero un servidor de Mongo en local.
+
+    docker run -p 27017:27017 -d mongo
+Luego ejecuta la aplicación con
+
     python app.py
 
 Desplegará un servidor web en [http://127.0.0.1:5000](http://127.0.0.1:5000)
